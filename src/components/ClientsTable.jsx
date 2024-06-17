@@ -9,7 +9,7 @@ export const ClientsTable = () => {
   };
   return (
     <div>
-      <h2 className="mt-4 px-5 text-white">Clientes de Juan Cisint</h2>
+      <h2 className="mt-4 px-5">Clientes de Juan Cisint</h2>
       <div className="mt-4 px-5">
         <table style={{background: "#8b0d70"}} className="table">
           <thead>

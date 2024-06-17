@@ -66,7 +66,7 @@ export const VtoTable = () => {
 
   return (
     <div className="m-4">
-      <h2 className="my-4 text-white">Vencimientos de Facturas</h2>
+      <h2 className="my-4">Vencimientos de Facturas</h2>
       <table className="table">
         <thead>
           <tr>

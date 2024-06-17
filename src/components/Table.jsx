@@ -74,8 +74,8 @@ export const Table = () => {
   return (
     <div className="m-5">
       <div className="my-3 d-flex justify-content-between">
-        <h2 className="text-white">Registros</h2>
-        <h3 className="text-white">SALDO TOTAL: $ {saldoTotal.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+        <h2 className="">Registros</h2>
+        <h3 className="">SALDO TOTAL: $ {saldoTotal.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
       </div>
       <table className="table">
         <thead>
