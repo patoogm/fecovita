@@ -1,4 +1,5 @@
 import data from "../data/data.json";
+import '../styles/vtoTable.css'
 
 export const VtoTable = () => {
   const columns = [
@@ -64,9 +65,37 @@ export const VtoTable = () => {
       return dateA - dateB;
     });
 
+  const countStates = (filteredData) => {
+    let vigente = 0;
+    let porVencer = 0;
+    let vencido = 0;
+
+    filteredData.forEach(row => {
+      const days = calculateDaysToDue(row.fVto);
+      if (days > 4) {
+        vigente++;
+      } else if (days > 0 && days <= 4) {
+        porVencer++;
+      } else {
+        vencido++;
+      }
+    });
+
+    return { vigente, porVencer, vencido };
+  };
+
+  const { vigente, porVencer, vencido } = countStates(filteredData);
+
   return (
     <div className="m-4">
-      <h2 className="my-4">Vencimientos de Facturas</h2>
+      <div className="d-flex justify-content-between">
+        <h3 className="">Vencimientos de Facturas</h3>
+        <div className="d-flex">
+          <h3 className="mx-4 p-2 text">Vigentes: {vigente}</h3>
+          <h3 className="mx-4 p-2 text">Por vencer: {porVencer}</h3>
+          <h3 className="mx-4 p-2 text">Vencidas: {vencido}</h3>
+        </div>
+      </div>
       <table className="table">
         <thead>
           <tr>
