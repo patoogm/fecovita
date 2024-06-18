@@ -65,35 +65,45 @@ export const VtoTable = () => {
       return dateA - dateB;
     });
 
-  const countStates = (filteredData) => {
-    let vigente = 0;
-    let porVencer = 0;
-    let vencido = 0;
+  const calculateTotals = (filteredData) => {
+    let totalVigente = 0;
+    let totalPorVencer = 0;
+    let totalVencido = 0;
+    let totalPendiente = 0;
 
     filteredData.forEach(row => {
       const days = calculateDaysToDue(row.fVto);
+      const importe = parseFloat(row.importePendiente.replace(/[^0-9,-]/g, '').replace(',', '.'));
+
       if (days > 4) {
-        vigente++;
+        totalVigente += importe;
       } else if (days > 0 && days <= 4) {
-        porVencer++;
+        totalPorVencer += importe;
       } else {
-        vencido++;
+        totalVencido += importe;
       }
+
+      totalPendiente += importe;
     });
 
-    return { vigente, porVencer, vencido };
+    return { totalVigente, totalPorVencer, totalVencido, totalPendiente };
   };
 
-  const { vigente, porVencer, vencido } = countStates(filteredData);
+  const { totalVigente, totalPorVencer, totalVencido, totalPendiente } = calculateTotals(filteredData);
 
   return (
     <div className="m-4">
       <div className="d-flex justify-content-between">
         <h3 className="">Vencimientos de Facturas</h3>
         <div className="d-flex">
-          <h3 className="mx-4 p-2 text">Vigentes: {vigente}</h3>
-          <h3 className="mx-4 p-2 text">Por vencer: {porVencer}</h3>
-          <h3 className="mx-4 p-2 text">Vencidas: {vencido}</h3>
+          <div>
+            <h4 className="text m-3 p-2">Vigentes: $ {totalVigente.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
+            <h4 className="text m-3 p-2">Por vencer: $ {totalPorVencer.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
+          </div>
+          <div>
+            <h4 className="text m-3 p-2">Vencidas: $ {totalVencido.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
+            <h4 className="text m-3 p-2">Total pendiente: $ {totalPendiente.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
+          </div>
         </div>
       </div>
       <table className="table">
